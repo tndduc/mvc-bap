@@ -1,12 +1,10 @@
 package bap.jp.mvcbap.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -22,4 +20,27 @@ public class Category {
     @Column(name = "delete_flg")
     private Boolean deleteFlg;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public Boolean getDeleteFlg() {
+        return deleteFlg;
+    }
+
+    public void setDeleteFlg(Boolean deleteFlg) {
+        this.deleteFlg = deleteFlg;
+    }
 }

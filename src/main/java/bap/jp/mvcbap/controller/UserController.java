@@ -21,6 +21,6 @@ public class UserController {
     @RequestMapping(value="/users", method= RequestMethod.GET)
     public String listUsers(Model model) {
 	model.addAttribute("users", userService.getAllUsers());
-	return "users"; // trỏ đến file users.html
+	return "users";
     }
 }

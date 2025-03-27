@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Danh sách Orders</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+
 </head>
 <body>
 <h2>Danh sách Orders của User</h2>
@@ -12,7 +15,10 @@
     <th>Total Amount</th>
   </tr>
   <tr th:each="order : ${orders}">
-    <td th:text="${order.id}"></td>
+    <td>
+      <a th:href="@{/orders/detail/{orderId}(orderId=${order.id})}" th:text="${order.id}"></a>
+    </td>
+
     <td th:text="${order.orderDate}"></td>
     <td th:text="${order.totalAmount}"></td>
   </tr>

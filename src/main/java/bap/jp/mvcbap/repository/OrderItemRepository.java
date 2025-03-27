@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
-    @Query(value="SELECT * FROM order_item WHERE order_id = :orderId", nativeQuery=true)
+    @Query(value="SELECT * FROM order_items WHERE order_id = :orderId", nativeQuery=true)
     List<OrderItem> findByOrderId(@Param("orderId") Integer orderId);
 }

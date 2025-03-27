@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+    <title>Chi tiết đơn hàng</title>
+</head>
+<body>
+<h2>Chi tiết đơn hàng</h2>
+
+<!-- Thông tin đơn hàng -->
+<table border="1">
+    <tr>
+        <th>Order ID</th>
+        <th>Ngày đặt hàng</th>
+        <th>Tổng tiền</th>
+        <th>User ID</th>
+    </tr>
+    <tr>
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.orderDate}"></td>
+        <td th:text="${order.totalAmount}"></td>
+        <td th:text="${order.userid}"></td>
+    </tr>
+</table>
+
+<!-- Danh sách sản phẩm trong đơn hàng -->
+<h3>Sản phẩm trong đơn hàng</h3>
+<table border="1">
+    <tr>
+        <th>Item ID</th>
+        <th>Tên sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Giá</th>
+    </tr>
+    <tr th:each="orderItem : ${orderItems}">
+        <td th:text="${orderItem.id}"></td>
+        <td th:text="${productMap[orderItem.id].productName}"></td>
+        <td th:text="${orderItem.quantity}"></td>
+        <td th:text="${orderItem.price}"></td>
+    </tr>
+</table>
+
+<!-- Nút quay lại danh sách đơn hàng -->
+<br>
+<a th:href="@{/orders}">Quay lại danh sách đơn hàng</a>
+
+</body>
+</html>

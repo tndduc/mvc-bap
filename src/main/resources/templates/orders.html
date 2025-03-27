@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách đơn hàng</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+</head>
+<body>
+<h2>Danh sách đơn hàng</h2>
+
+<table border="1">
+    <tr>
+        <th>Order ID</th>
+        <th>Ngày đặt hàng</th>
+        <th>Tổng tiền</th>
+        <th>User ID</th>
+        <th>Chi tiết</th>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.orderDate}"></td>
+        <td th:text="${order.totalAmount}"></td>
+        <td>
+            <a th:href="@{/orders/user/{id}(id=${order.userid})}" th:text="${order.userid}"></a>
+        </td>
+        <td><a th:href="@{/orders/detail/{id}(id=${order.id})}">Xem chi tiết</a></td>
+    </tr>
+</table>
+
+</body>
+</html>

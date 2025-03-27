@@ -1,15 +1,13 @@
 package bap.jp.mvcbap.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -29,7 +27,46 @@ public class Order {
     @Column(name = "delete_flg")
     private Boolean deleteFlg;
 
-    @Column(name = "userid")
+    @Column(name = "user_id")
     private Integer userid;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Instant getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Instant orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public Boolean getDeleteFlg() {
+        return deleteFlg;
+    }
+
+    public void setDeleteFlg(Boolean deleteFlg) {
+        this.deleteFlg = deleteFlg;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 }

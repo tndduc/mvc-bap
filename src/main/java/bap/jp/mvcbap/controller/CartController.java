@@ -26,10 +26,8 @@ public class CartController {
 
     @GetMapping
     public String viewCart(Model model) {
-	// Lấy giỏ hàng (Map: productId -> quantity)
 	Map<Integer, Integer> cart = cartService.getCart();
 
-	// Tạo map chứa thông tin sản phẩm theo productId
 	Map<Integer, Product> productMap = new HashMap<>();
 	for (Integer productId : cart.keySet()) {
 	    productRepository.findById(productId).ifPresent(product -> productMap.put(productId, product));

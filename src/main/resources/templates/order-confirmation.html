@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
   <title>Xác nhận đơn hàng</title>
 </head>
 <body>
@@ -8,6 +10,6 @@
 <p>Order ID: <span th:text="${order.id}"></span></p>
 <p>Order Date: <span th:text="${order.orderDate}"></span></p>
 <p>Total Amount: <span th:text="${order.totalAmount}"></span></p>
-<a th:href="@{/}">Quay về trang chủ</a>
+<a th:href="@{/cart}">Quay về trang chủ</a>
 </body>
 </html>

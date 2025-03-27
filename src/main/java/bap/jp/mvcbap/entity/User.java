@@ -1,12 +1,10 @@
 package bap.jp.mvcbap.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -23,4 +21,27 @@ public class User {
     @Column(name = "delete_flg")
     private Boolean deleteFlg;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Boolean getDeleteFlg() {
+        return deleteFlg;
+    }
+
+    public void setDeleteFlg(Boolean deleteFlg) {
+        this.deleteFlg = deleteFlg;
+    }
 }
