@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Danh sách Users</title>
+</head>
+<body>
+<h2>Danh sách Users</h2>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Tên User</th>
+  </tr>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.userName}"></td>
+  </tr>
+</table>
+</body>
+</html>
