@@ -9,6 +9,7 @@ import bap.jp.mvcbap.repository.OrderRepository;
 import bap.jp.mvcbap.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -28,6 +29,8 @@ public class PaymentService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Transactional
     public Order checkout(Integer userId) {
 	Order order = new Order();
 	order.setUserid(userId);

@@ -26,15 +26,8 @@ public class CartController {
 
     @GetMapping
     public String viewCart(Model model) {
-	Map<Integer, Integer> cart = cartService.getCart();
-
-	Map<Integer, Product> productMap = new HashMap<>();
-	for (Integer productId : cart.keySet()) {
-	    productRepository.findById(productId).ifPresent(product -> productMap.put(productId, product));
-	}
-
-	model.addAttribute("cart", cart);
-	model.addAttribute("productMap", productMap);
+	model.addAttribute("cart", cartService.getCart());
+	model.addAttribute("productMap", cartService.getCartProducts());
 	return "cart.html";
     }
 

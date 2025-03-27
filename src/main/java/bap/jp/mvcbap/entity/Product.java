@@ -32,8 +32,6 @@ public class Product {
     @Column(name = "delete_flg")
     private Boolean deleteFlg;
 
-    @Column(name = "categoryid")
-    private Integer categoryid;
 
     public Integer getId() {
         return id;
@@ -75,11 +73,4 @@ public class Product {
         this.deleteFlg = deleteFlg;
     }
 
-    public Integer getCategoryid() {
-        return categoryid;
-    }
-
-    public void setCategoryid(Integer categoryid) {
-        this.categoryid = categoryid;
-    }
 }
