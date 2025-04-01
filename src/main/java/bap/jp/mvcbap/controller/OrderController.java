@@ -13,8 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
@@ -48,4 +52,33 @@ public class OrderController {
 	model.addAttribute("orders", orderService.getAllOrders());
 	return "orders";
     }
+    @GetMapping("/search")
+    public String searchOrders(
+	    @RequestParam(name = "minAmount", required = false) BigDecimal minAmount,
+	    @RequestParam(name = "maxAmount", required = false) BigDecimal maxAmount,
+	    Model model) {
+
+	List<Order> orders;
+
+	if (minAmount != null && maxAmount != null) {
+	    orders = orderService.findOrdersByTotalAmountBetween(minAmount, maxAmount);
+	} else if (minAmount != null) {
+	    orders = orderService.findOrdersByTotalAmountGreaterThan(minAmount);
+	} else if (maxAmount != null) {
+	    orders = orderService.findOrdersByTotalAmountLessThan(maxAmount);
+	} else {
+	    orders = orderService.getAllOrders();
+	}
+
+	model.addAttribute("orders", orders);
+	return "orders";
+    }
+    @GetMapping("/monthly-report")
+    public String getMonthlyReport(Model model) {
+	Map<String, BigDecimal> report = orderService.getMonthlyReport();
+	model.addAttribute("total", report.get("total"));
+	model.addAttribute("average", report.get("average"));
+	return "monthly-report.html";
+    }
+
 }

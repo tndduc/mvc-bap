@@ -14,7 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +56,41 @@ public class OrderService {
 	return productMap;
     }
 
+
+    public Map<String, BigDecimal> getMonthlyReport() {
+	List<Order> orders = orderRepository.findOrdersForCurrentMonth();
+
+	BigDecimal total = BigDecimal.ZERO;
+	if (!orders.isEmpty()) {
+	    for (Order order : orders) {
+		total = total.add(order.getTotalAmount());
+	    }
+	}
+
+	BigDecimal average = BigDecimal.ZERO;
+	if (!orders.isEmpty()) {
+	    average = total.divide(new BigDecimal(orders.size()), 2, RoundingMode.HALF_UP);
+	}
+
+	Map<String, BigDecimal> report = new HashMap<>();
+	report.put("total", total);
+	report.put("average", average);
+
+	return report;
+    }
+
     public List<Order> getAllOrders() {
 	return orderRepository.findAll();
+    }
+    public List<Order> findOrdersByTotalAmountBetween(BigDecimal min, BigDecimal max) {
+	return orderRepository.findOrdersByTotalAmountBetween(min, max);
+    }
+
+    public List<Order> findOrdersByTotalAmountGreaterThan(BigDecimal min) {
+	return orderRepository.findOrdersByTotalAmountGreaterThan(min);
+    }
+
+    public List<Order> findOrdersByTotalAmountLessThan(BigDecimal max) {
+	return orderRepository.findOrdersByTotalAmountLessThan(max);
     }
 }

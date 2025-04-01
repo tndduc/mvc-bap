@@ -7,7 +7,15 @@
 </head>
 <body>
 <h2>Danh sách đơn hàng</h2>
+<form th:action="@{/orders/search}" method="get">
+    <label for="minAmount">Giá trị tối thiểu:</label>
+    <input type="number" id="minAmount" name="minAmount" step="0.01">
 
+    <label for="maxAmount">Giá trị tối đa:</label>
+    <input type="number" id="maxAmount" name="maxAmount" step="0.01">
+
+    <button type="submit">Tìm kiếm</button>
+</form>
 <table border="1">
     <tr>
         <th>Order ID</th>
@@ -26,6 +34,6 @@
         <td><a th:href="@{/orders/detail/{id}(id=${order.id})}">Xem chi tiết</a></td>
     </tr>
 </table>
-
+<a href="/orders/monthly-report" class="btn btn-primary">Báo cáo tháng</a>
 </body>
 </html>
