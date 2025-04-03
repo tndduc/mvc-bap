@@ -1,7 +1,6 @@
 package bap.jp.mvcbap.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;

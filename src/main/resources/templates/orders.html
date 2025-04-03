@@ -13,7 +13,7 @@
         <th>Order ID</th>
         <th>Ngày đặt hàng</th>
         <th>Tổng tiền</th>
-        <th>User ID</th>
+        <th>User</th>
         <th>Chi tiết</th>
     </tr>
     <tr th:each="order : ${orders}">
@@ -21,7 +21,7 @@
         <td th:text="${order.orderDate}"></td>
         <td th:text="${order.totalAmount}"></td>
         <td>
-            <a th:href="@{/orders/user/{id}(id=${order.userid})}" th:text="${order.userid}"></a>
+            <a th:href="@{/orders/user/{id}(id=${order.user.id})}" th:text="${order.user.userName}"></a>
         </td>
         <td><a th:href="@{/orders/detail/{id}(id=${order.id})}">Xem chi tiết</a></td>
     </tr>

@@ -1,8 +1,9 @@
 package bap.jp.mvcbap.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
+
+import java.util.List;
 
 
 @Entity
@@ -20,6 +21,10 @@ public class User {
     @ColumnDefault("0")
     @Column(name = "delete_flg")
     private Boolean deleteFlg;
+
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Order> orders;
 
     public Integer getId() {
         return id;
@@ -43,5 +48,13 @@ public class User {
 
     public void setDeleteFlg(Boolean deleteFlg) {
         this.deleteFlg = deleteFlg;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

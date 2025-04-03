@@ -1,0 +1,5 @@
+productName,price,categoryId,deleteFlg
+Sản phẩm A,100.50,1,true
+Sản phẩm B,200.00,2,true
+Sản phẩm C,150.75,,true
+Sản phẩm D,50.00,3,true

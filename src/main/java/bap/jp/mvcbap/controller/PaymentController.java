@@ -1,7 +1,5 @@
 package bap.jp.mvcbap.controller;
 import bap.jp.mvcbap.entity.Order;
-import bap.jp.mvcbap.entity.OrderItem;
-import bap.jp.mvcbap.service.OrderService;
 import bap.jp.mvcbap.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
