@@ -1,4 +1,4 @@
-package bap.jp.mvcbap.entity.enun;
+package bap.jp.mvcbap.entity.type;
 
 public enum Role {
     ADMIN,

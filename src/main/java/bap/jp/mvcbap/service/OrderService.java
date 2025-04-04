@@ -48,7 +48,9 @@ public class OrderService {
 	}
 	return productMap;
     }
-
+    public List<Object[]> getMonthlyRevenueForYear() {
+	return orderRepository.getRevenueByMonthInYear();
+    }
     public List<Order> getAllOrders() {
 	return orderRepository.findAll();
     }

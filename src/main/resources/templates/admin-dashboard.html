@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"><link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+<head>
+    <title>Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<h1>Admin Dashboard</h1>
+<p>Welcome, Admin!</p>
+
+<a th:href="@{/}">Back to Home</a>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+<a th:href="@{/admin/category}">
+    <button>Quản lý Danh mục</button>
+</a>
+
+<h2>Danh sách sản phẩm</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Tên sản phẩm</th>
+        <th>Giá</th>
+        <th>Hành động</th>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.productName}"></td>
+        <td th:text="${product.price}"></td>
+        <td>
+            <a th:href="@{/admin/edit/{id}(id=${product.id})}">Sửa</a> |
+            <form th:action="@{/admin/delete/{id}(id=${product.id})}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+
+<h2>Thêm sản phẩm mới</h2>
+<form th:action="@{/admin/add}" method="post">
+    <label>Tên sản phẩm: <input type="text" name="productName" required /></label>
+    <label>Giá: <input type="number" name="price" step="0.01" required /></label>
+    <button type="submit">Thêm</button>
+</form>
+<h3>Thống kê doanh thu theo tháng</h3>
+<canvas id="revenueChart" width="400" height="200"></canvas>
+
+<a th:href="@{/}">Back to Home</a>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const revenueData = /*[[${monthlyRevenue}]]*/ [];
+    console.log("Revenue Data: ", revenueData);
+
+    if (revenueData.length === 0) {
+        console.log("No data found");
+    } else {
+        const labels = revenueData.map(entry => "Tháng " + entry[0]);
+        const data = revenueData.map(entry => entry[1]);
+
+        var ctx = document.getElementById('revenueChart').getContext('2d');
+        var revenueChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Doanh thu theo tháng',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+    /*]]>*/
+</script>
+
+</body>
+</html>

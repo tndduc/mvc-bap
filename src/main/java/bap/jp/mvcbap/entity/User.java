@@ -1,6 +1,6 @@
 package bap.jp.mvcbap.entity;
 
-import bap.jp.mvcbap.entity.enun.Role;
+import bap.jp.mvcbap.entity.type.Role;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -30,7 +30,14 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
+    public User() {}
 
+    public User(String userName, String password, Role role) {
+        this.userName = userName;
+        this.password = password;
+        this.role = role;
+        this.deleteFlg = false;
+    }
     public Integer getId() {
         return id;
     }
@@ -45,6 +52,22 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Boolean getDeleteFlg() {

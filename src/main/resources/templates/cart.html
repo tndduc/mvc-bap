@@ -27,7 +27,6 @@
   </tr>
 </table>
 
-<!-- Form thêm sản phẩm vào giỏ -->
 <h3>Thêm sản phẩm</h3>
 <form th:action="@{/cart/add}" method="post">
   <label>Product ID: <input type="text" name="productId" /></label>
@@ -35,10 +34,8 @@
   <input type="submit" value="Thêm" />
 </form>
 
-<!-- Form Check Out -->
 <h3>Thanh toán</h3>
 <form th:action="@{/payment/checkout}" method="post">
-  <label>User ID: <input type="text" name="userId" /></label>
   <input type="submit" value="Check Out" />
 </form>
 
