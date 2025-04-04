@@ -4,9 +4,11 @@ package bap.jp.mvcbap.service;
 import bap.jp.mvcbap.entity.Order;
 import bap.jp.mvcbap.entity.OrderItem;
 import bap.jp.mvcbap.entity.Product;
+import bap.jp.mvcbap.entity.User;
 import bap.jp.mvcbap.repository.OrderItemRepository;
 import bap.jp.mvcbap.repository.OrderRepository;
 import bap.jp.mvcbap.repository.ProductRepository;
+import bap.jp.mvcbap.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class PaymentService {
@@ -29,11 +32,19 @@ public class PaymentService {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Transactional
     public Order checkout(Integer userId) {
 	Order order = new Order();
-	order.setUserid(userId);
+	Optional<User> user = userRepository.findById(userId);
+	if (user.isPresent()) {
+	    order.setUser(user.get());
+	}else {
+	    return null;
+	}
+	order.setUser(user.get());
 	order.setOrderDate(Instant.now());
 	order.setTotalAmount(BigDecimal.ZERO);
 	order.setDeleteFlg(false);

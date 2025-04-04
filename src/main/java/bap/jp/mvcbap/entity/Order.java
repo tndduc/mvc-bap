@@ -1,7 +1,6 @@
 package bap.jp.mvcbap.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
@@ -27,8 +26,10 @@ public class Order {
     @Column(name = "delete_flg")
     private Boolean deleteFlg;
 
-    @Column(name = "user_id")
-    private Integer userid;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Integer getId() {
         return id;
@@ -62,11 +63,11 @@ public class Order {
         this.deleteFlg = deleteFlg;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
