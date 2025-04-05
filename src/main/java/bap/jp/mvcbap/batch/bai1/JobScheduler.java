@@ -1,5 +1,6 @@
 package bap.jp.mvcbap.batch.bai1;
 
+import bap.jp.mvcbap.batch.bonus.BatchSchedulerControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -19,15 +20,21 @@ public class JobScheduler {
     private static final Logger logger = LoggerFactory.getLogger(JobScheduler.class);
     private final JobLauncher jobLauncher;
     private final Job exportOrderJob;
-
+    private final BatchSchedulerControl schedulerControl;
     @Autowired
-    public JobScheduler(JobLauncher jobLauncher, Job exportOrderJob) {
+    public JobScheduler(JobLauncher jobLauncher, Job exportOrderJob, BatchSchedulerControl schedulerControl) {
 	this.jobLauncher = jobLauncher;
 	this.exportOrderJob = exportOrderJob;
+	this.schedulerControl = schedulerControl;
     }
 
-    @Scheduled(cron = "0 0 * * * ?")
+
+    @Scheduled(cron = "0 * * * * ?")
     public void runJob() throws Exception {
+	if (!schedulerControl.isExportJobEnabled()) {
+	    logger.info("Scheduler của exportOrderJob đã bị tắt.");
+	    return;
+	}
 	logger.info("Scheduler kích hoạt. Chuẩn bị chạy job exportOrderJob...");
 	LocalDateTime now = LocalDateTime.now();
 	LocalDateTime startTime = now.minusHours(1);

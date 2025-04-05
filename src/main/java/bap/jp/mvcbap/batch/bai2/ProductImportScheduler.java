@@ -1,6 +1,7 @@
 package bap.jp.mvcbap.batch.bai2;
 
 
+import bap.jp.mvcbap.batch.bonus.BatchSchedulerControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -22,15 +23,21 @@ public class ProductImportScheduler {
 
     private final JobLauncher jobLauncher;
     private final Job importProductJob;
+    private final BatchSchedulerControl schedulerControl;
 
     @Autowired
-    public ProductImportScheduler(JobLauncher jobLauncher, Job importProductJob) {
+    public ProductImportScheduler(JobLauncher jobLauncher, Job importProductJob, BatchSchedulerControl schedulerControl) {
 	this.jobLauncher = jobLauncher;
 	this.importProductJob = importProductJob;
+	this.schedulerControl = schedulerControl;
     }
 
-    @Scheduled(fixedDelay = 5 * 60 * 1000)
+    @Scheduled(fixedDelay = 1 * 60 * 1000)
     public void runProductImportJob() throws Exception {
+	if (!schedulerControl.isImportJobEnabled()) {
+	    logger.info("Scheduler của importProductJob đã bị tắt.");
+	    return;
+	}
 	File file = new File(FILE_PATH);
 	if (!file.exists()) {
 	    logger.info("File {} không tồn tại. Bỏ qua job import.", FILE_PATH);
@@ -43,6 +50,7 @@ public class ProductImportScheduler {
 		.addLong("timestamp", System.currentTimeMillis())
 		.toJobParameters();
 	JobExecution execution = jobLauncher.run(importProductJob, jobParameters);
-	logger.info("Job importProductJob chạy với execution id: {} và trạng thái: {}", execution.getId(), execution.getStatus());
+	logger.info("Job importProductJob chạy với execution id: {} và trạng thái: {}",
+		execution.getId(), execution.getStatus());
     }
 }

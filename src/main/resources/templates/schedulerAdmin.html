@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Scheduler Batch</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Quản lý Scheduler Batch</h1>
+<form th:action="@{/admin/scheduler/update}" method="post">
+    <div>
+        <label>
+            <input type="checkbox" name="exportJobEnabled" th:checked="${schedulerControl.exportJobEnabled}"/> Export Order Job
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="importJobEnabled" th:checked="${schedulerControl.importJobEnabled}"/> Import Product Job
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="cleanupJobEnabled" th:checked="${schedulerControl.cleanupJobEnabled}"/> Cleanup Job
+        </label>
+    </div>
+    <button type="submit">Cập nhật</button>
+</form>
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+</body>
+</html>
